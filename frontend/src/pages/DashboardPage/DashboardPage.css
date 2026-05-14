@@ -14,7 +14,7 @@
   color: var(--danger);
   border-radius: var(--radius);
   font-size: var(--font-size-sm);
-  border: 1px solid #fca5a5;
+  border: 1px solid var(--danger-light);
 }
 
 /* Stats Grid */
@@ -34,8 +34,9 @@
 .dashboard__section-title {
   font-size: var(--font-size-base);
   font-weight: 600;
-  color: var(--gray-800);
+  color: var(--gray-900);
   margin-bottom: var(--space-4);
+  letter-spacing: -0.01em;
 }
 
 /* Breakdown */
@@ -45,7 +46,7 @@
   gap: var(--space-3);
   margin-top: var(--space-4);
   padding-top: var(--space-4);
-  border-top: 1px solid var(--gray-100);
+  border-top: 1px solid var(--gray-200);
 }
 
 .dashboard__breakdown-item {
@@ -61,8 +62,9 @@
 
 .dashboard__breakdown-value {
   font-size: var(--font-size-xl);
-  font-weight: 700;
-  color: var(--gray-800);
+  font-weight: 600;
+  color: var(--gray-900);
+  letter-spacing: -0.02em;
 }
 
 /* Recent Tasks */
@@ -80,6 +82,7 @@
   border-radius: var(--radius);
   background: var(--gray-50);
   gap: var(--space-3);
+  border: 1px solid var(--gray-100);
 }
 
 .dashboard__task-info {
@@ -92,7 +95,7 @@
 .dashboard__task-title {
   font-size: var(--font-size-sm);
   font-weight: 500;
-  color: var(--gray-800);
+  color: var(--gray-900);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -100,7 +103,7 @@
 
 .dashboard__task-project {
   font-size: var(--font-size-xs);
-  color: var(--gray-400);
+  color: var(--gray-500);
 }
 
 .dashboard__task-badges {

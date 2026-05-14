@@ -27,12 +27,13 @@
 
 .projects-page__empty h3 {
   font-size: var(--font-size-lg);
-  font-weight: 600;
-  color: var(--gray-500);
+  font-weight: 500;
+  color: var(--gray-600);
 }
 
 .projects-page__empty p {
   font-size: var(--font-size-sm);
+  color: var(--gray-500);
 }
 
 @media (max-width: 1024px) {

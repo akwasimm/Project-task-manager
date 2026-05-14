@@ -14,8 +14,8 @@
   gap: var(--space-4);
   padding: 0 var(--space-4);
   font-size: var(--font-size-xs);
-  font-weight: 600;
-  color: var(--gray-400);
+  font-weight: 500;
+  color: var(--gray-500);
   text-transform: uppercase;
   letter-spacing: 0.05em;
 }
@@ -39,6 +39,11 @@
 
 .users-page__empty h3 {
   font-size: var(--font-size-lg);
-  font-weight: 600;
+  font-weight: 500;
+  color: var(--gray-600);
+}
+
+.users-page__empty p {
+  font-size: var(--font-size-sm);
   color: var(--gray-500);
 }

@@ -1,0 +1,21 @@
+# Render configuration for backend deployment
+build:
+  dockerfile: Dockerfile
+env:
+  - key: DATABASE_URL
+    sync: false
+  - key: DATABASE_URL_NEON
+    sync: false
+  - key: SECRET_KEY
+    sync: false
+  - key: ALGORITHM
+    value: "HS256"
+  - key: ACCESS_TOKEN_EXPIRE_MINUTES
+    value: "30"
+  - key: ADMIN_SECRET_KEY
+    sync: false
+  - key: FRONTEND_URL
+    sync: false
+deploy:
+  memory: 512MB
+  restart: always

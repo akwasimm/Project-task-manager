@@ -1,52 +1,56 @@
-# app/main.py
+"""
+Main FastAPI application file.
+Creates API endpoints and configures middleware.
+"""
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from app.database import engine, Base
 
-print("📦 Importing models...")
+# Import all models first to ensure SQLAlchemy metadata is populated
 from app.models.project import Project, project_members
 from app.models.user import User
 from app.models.task import Task
-print("✅ Models imported")
 
-print("📦 Importing routers...")
+# Import routers
 from app.routers.auth import router as auth_router
-print("✅ auth router imported")
 from app.routers.users import router as users_router
-print("✅ users router imported")
 from app.routers.projects import router as projects_router
-print("✅ projects router imported")
 from app.routers.tasks import router as tasks_router
-print("✅ tasks router imported")
 from app.routers.dashboard import router as dashboard_router
-print("✅ dashboard router imported")
 
+# Create all database tables 
 Base.metadata.create_all(bind=engine)
 
-app = FastAPI(title="Project Management API", version="1.0.0")
+app = FastAPI(
+    title="Project Management API",
+    version="1.0.0",
+    description="Enterprise-grade API for project management system"
+)
 
+# CORS configuration
+# Note: In production, set FRONTEND_URL in environment variables
+FRONTEND_URL = os.getenv("FRONTEND_URL", "*")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=[FRONTEND_URL] if FRONTEND_URL != "*" else ["*"],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
-print("📦 Registering routers...")
+# Register all routers
 app.include_router(auth_router)
-print("✅ auth registered")
 app.include_router(users_router)
-print("✅ users registered")
 app.include_router(projects_router)
-print("✅ projects registered")
 app.include_router(tasks_router)
-print("✅ tasks registered")
 app.include_router(dashboard_router)
-print("✅ dashboard registered")
 
 @app.get("/", tags=["Root"])
 def root():
-    return {"message": "Project Management API is running ✅"}
-
-print("🚀 App ready!")
+    """
+    Health check endpoint.
+    Returns:
+        dict: Status message confirming API is running
+    """
+    return {"message": "Project Management API is running"}

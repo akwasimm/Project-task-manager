@@ -7,7 +7,7 @@
 .spinner__circle {
   border-radius: 50%;
   border: 2px solid var(--gray-200);
-  border-top-color: var(--primary);
+  border-top-color: var(--gray-600);
   animation: spin 0.7s linear infinite;
 }
 

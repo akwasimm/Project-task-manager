@@ -5,13 +5,13 @@
   padding: var(--space-4);
   border-radius: var(--radius);
   background: var(--white);
-  border: 1px solid var(--gray-100);
+  border: 1px solid var(--gray-200);
   gap: var(--space-4);
   transition: var(--transition);
 }
 
 .task-row:hover {
-  border-color: var(--gray-200);
+  border-color: var(--gray-300);
   box-shadow: var(--shadow-sm);
 }
 
@@ -23,15 +23,15 @@
 .task-row__info {
   display: flex;
   flex-direction: column;
-  gap: 3px;
+  gap: 4px;
   min-width: 0;
   flex: 1;
 }
 
 .task-row__title {
   font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--gray-800);
+  font-weight: 500;
+  color: var(--gray-900);
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
@@ -74,9 +74,9 @@
 }
 
 .task-row__status-select {
-  padding: 2px var(--space-2);
+  padding: 4px var(--space-2);
   border: 1px solid var(--gray-200);
-  border-radius: var(--radius-sm);
+  border-radius: var(--radius);
   font-size: var(--font-size-xs);
   color: var(--gray-700);
   background: var(--white);
