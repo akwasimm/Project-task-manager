@@ -30,10 +30,11 @@ app = FastAPI(
 
 # CORS configuration
 # Note: In production, set FRONTEND_URL in environment variables
-FRONTEND_URL = os.getenv("FRONTEND_URL", "*")
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=[FRONTEND_URL] if FRONTEND_URL != "*" else ["*"],
+    allow_origins=[
+        "https://project-task-manager-liart.vercel.app"
+    ],
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
