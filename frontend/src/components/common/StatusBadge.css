@@ -1,0 +1,29 @@
+.status-badge {
+  display: inline-flex;
+  align-items: center;
+  padding: 2px 10px;
+  border-radius: var(--radius-full);
+  font-size: var(--font-size-xs);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.status-badge--todo {
+  background-color: var(--gray-100);
+  color: var(--gray-600);
+}
+
+.status-badge--in_progress {
+  background-color: var(--info-light);
+  color: var(--info);
+}
+
+.status-badge--done {
+  background-color: var(--success-light);
+  color: var(--success);
+}
+
+.status-badge--overdue {
+  background-color: var(--danger-light);
+  color: var(--danger);
+}

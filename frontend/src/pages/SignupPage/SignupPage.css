@@ -1,0 +1,3 @@
+/* Reuses auth-page styles from LoginPage.css */
+/* Import LoginPage.css or duplicate if needed */
+@import '../LoginPage/LoginPage.css';

@@ -1,0 +1,89 @@
+.task-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--space-4);
+  border-radius: var(--radius);
+  background: var(--white);
+  border: 1px solid var(--gray-100);
+  gap: var(--space-4);
+  transition: var(--transition);
+}
+
+.task-row:hover {
+  border-color: var(--gray-200);
+  box-shadow: var(--shadow-sm);
+}
+
+.task-row--overdue {
+  border-left: 3px solid var(--danger);
+  background: #fff8f8;
+}
+
+.task-row__info {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  min-width: 0;
+  flex: 1;
+}
+
+.task-row__title {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  color: var(--gray-800);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-row__desc {
+  font-size: var(--font-size-xs);
+  color: var(--gray-500);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.task-row__meta {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  margin-top: 2px;
+}
+
+.task-row__assignee,
+.task-row__due {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+  font-size: var(--font-size-xs);
+  color: var(--gray-400);
+}
+
+.task-row__due--overdue {
+  color: var(--danger);
+  font-weight: 500;
+}
+
+.task-row__right {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  flex-shrink: 0;
+}
+
+.task-row__status-select {
+  padding: 2px var(--space-2);
+  border: 1px solid var(--gray-200);
+  border-radius: var(--radius-sm);
+  font-size: var(--font-size-xs);
+  color: var(--gray-700);
+  background: var(--white);
+  cursor: pointer;
+}
+
+.task-row__actions {
+  display: flex;
+  gap: var(--space-1);
+}

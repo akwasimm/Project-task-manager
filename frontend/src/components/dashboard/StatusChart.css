@@ -1,0 +1,12 @@
+.status-chart {
+  width: 100%;
+}
+
+.status-chart--empty {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  height: 220px;
+  color: var(--gray-400);
+  font-size: var(--font-size-sm);
+}

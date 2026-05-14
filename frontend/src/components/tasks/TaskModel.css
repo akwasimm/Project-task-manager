@@ -1,0 +1,11 @@
+@import '../projects/ProjectModel.css';
+
+.modal--wide {
+  max-width: 600px;
+}
+
+.task-modal__row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-4);
+}
