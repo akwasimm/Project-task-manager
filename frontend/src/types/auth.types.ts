@@ -15,7 +15,7 @@ export interface SignupRequest {
   name: string;
   email: string;
   password: string;
-  role: 'admin' | 'member';
+  secret_key?: string;
 }
 
 export interface AuthToken {

@@ -9,10 +9,10 @@ import { authApi } from '../../api/auth.api'
 import './SignupPage.css'
 
 const schema = z.object({
-  name:     z.string().min(2, 'Name must be at least 2 characters'),
-  email:    z.string().email('Invalid email address'),
-  password: z.string().min(6, 'Password must be at least 6 characters'),
-  role:     z.enum(['admin', 'member']),
+  name:       z.string().min(2, 'Name must be at least 2 characters'),
+  email:      z.string().email('Invalid email address'),
+  password:   z.string().min(6, 'Password must be at least 6 characters'),
+  secret_key: z.string().optional(),
 })
 
 type FormData = z.infer<typeof schema>
@@ -23,6 +23,7 @@ const SignupPage = () => {
   const [showPassword, setShowPassword] = useState(false)
   const [apiError,     setApiError]     = useState('')
   const [isLoading,    setIsLoading]    = useState(false)
+  const [secretKey,    setSecretKey]    = useState('')
 
   const {
     register,
@@ -30,7 +31,6 @@ const SignupPage = () => {
     formState: { errors },
   } = useForm<FormData>({
     resolver: zodResolver(schema),
-    defaultValues: { role: 'member' },
   })
 
   const onSubmit = async (data: FormData) => {
@@ -117,13 +117,30 @@ const SignupPage = () => {
             )}
           </div>
 
-          {/* Role */}
+          {/* Secret Key */}
           <div className='form-group'>
-            <label className='form-label'>Role</label>
-            <select className='form-select' {...register('role')}>
-              <option value='member'>Member</option>
-              <option value='admin'>Admin</option>
-            </select>
+            <label className='form-label'>Secret Key (Optional)</label>
+            <div className='auth-form__secret-key'>
+              <input
+                type='text'
+                className='form-input'
+                placeholder='Enter admin secret key'
+                {...register('secret_key')}
+                value={secretKey}
+                onChange={(e) => setSecretKey(e.target.value)}
+              />
+              {secretKey && (
+                <button
+                  type='button'
+                  className='auth-form__clear'
+                  onClick={() => {
+                    setSecretKey('')
+                  }}
+                >
+                  ✕
+                </button>
+              )}
+            </div>
           </div>
 
           <button

@@ -2,12 +2,15 @@ import { useState } from 'react'
 import { CheckSquare } from 'lucide-react'
 import {
   useMyTasks,
+  useUpdateTask,
   useUpdateTaskStatus,
   useDeleteTask,
 } from '../../hooks/useTasks'
+import { useUsers }     from '../../hooks/useUsers'
 import { useToast }      from '../../hooks/useToast'
 import TaskRow           from '../../components/tasks/TaskRow'
 import TaskFilters       from '../../components/tasks/TaskFilters'
+import TaskModal         from '../../components/tasks/TaskModel'
 import ConfirmDialog     from '../../components/common/ConfirmDialog'
 import LoadingSpinner    from '../../components/common/LoadingSpinner'
 import ErrorMessage      from '../../components/common/ErrorMessage'
@@ -19,10 +22,14 @@ const TasksPage = () => {
   const toast = useToast()
 
   const { data: tasks, isLoading, isError } = useMyTasks()
+  const { data: allUsers } = useUsers()
+  const updateTask   = useUpdateTask()
   const updateStatus = useUpdateTaskStatus()
   const deleteTask   = useDeleteTask()
 
   const [deleteTarget,    setDeleteTarget]    = useState<Task | null>(null)
+  const [editTask,        setEditTask]        = useState<Task | null>(null)
+  const [isTaskModalOpen, setIsTaskModalOpen] = useState(false)
   const [statusFilter,    setStatusFilter]    = useState('')
   const [priorityFilter,  setPriorityFilter]  = useState('')
   const [searchQuery,     setSearchQuery]     = useState('')
@@ -58,6 +65,30 @@ const TasksPage = () => {
     } catch {
       toast.error('Failed to delete task')
     }
+  }
+
+  const handleUpdateTask = async (data: any) => {
+    if (!editTask) return
+    try {
+      await updateTask.mutateAsync({
+        id: editTask.id,
+        data: {
+          ...data,
+          due_date: data.due_date || undefined,
+          assigned_to: data.assigned_to || undefined,
+        },
+      })
+      toast.success('Task updated!')
+      setEditTask(null)
+      setIsTaskModalOpen(false)
+    } catch {
+      toast.error('Failed to update task')
+    }
+  }
+
+  const openEditTask = (task: Task) => {
+    setEditTask(task)
+    setIsTaskModalOpen(true)
   }
 
   if (isLoading) {
@@ -110,7 +141,7 @@ const TasksPage = () => {
             <TaskRow
               key={task.id}
               task={task}
-              onEdit={() => {}}
+              onEdit={openEditTask}
               onDelete={setDeleteTarget}
               onStatusChange={handleStatusChange}
             />
@@ -126,6 +157,16 @@ const TasksPage = () => {
         onConfirm={handleDelete}
         onCancel={() => setDeleteTarget(null)}
         isLoading={deleteTask.isPending}
+      />
+
+      {/* Task Modal */}
+      <TaskModal
+        isOpen={isTaskModalOpen}
+        onClose={() => { setIsTaskModalOpen(false); setEditTask(null) }}
+        onSubmit={handleUpdateTask}
+        isLoading={updateTask.isPending}
+        members={allUsers || []}
+        editData={editTask}
       />
 
       <Toast toasts={toast.toasts} removeToast={toast.removeToast} />

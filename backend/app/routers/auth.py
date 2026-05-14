@@ -7,6 +7,7 @@ from app.models.user import User
 from app.schemas.user import UserCreate, UserLogin, UserResponse, Token
 from app.utils.security import hash_password, verify_password, create_access_token
 from app.dependencies.auth import get_current_user
+from app.config import settings
 
 router = APIRouter(prefix="/auth", tags=["Authentication"])
 
@@ -20,11 +21,22 @@ def signup(user_data: UserCreate, db: Session = Depends(get_db)):
             detail="Email already registered"
         )
 
+    # Determine role based on secret key
+    if user_data.secret_key and user_data.secret_key.strip():
+        if user_data.secret_key != settings.ADMIN_SECRET_KEY:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Wrong secret key. Either provide the correct secret key or leave it empty to become a member."
+            )
+        role = "admin"
+    else:
+        role = "member"
+
     new_user = User(
         name=user_data.name,
         email=user_data.email,
         password=hash_password(user_data.password),
-        role=user_data.role
+        role=role
     )
     db.add(new_user)
     db.commit()

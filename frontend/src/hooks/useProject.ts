@@ -54,6 +54,7 @@ export const useAddMember = () => {
     mutationFn: ({ projectId, data }: { projectId: string; data: AddMemberRequest }) =>
       projectsApi.addMember(projectId, data),
     onSuccess: (_: any, variables: { projectId: string; data: AddMemberRequest }) => {
+      queryClient.invalidateQueries({ queryKey: ['projects'] })
       queryClient.invalidateQueries({ queryKey: ['projects', variables.projectId] })
     },
   })

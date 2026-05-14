@@ -13,7 +13,7 @@ class UserCreate(BaseModel):
     name: str
     email: EmailStr
     password: str
-    role: UserRole = UserRole.member
+    secret_key: str | None = None
 
 class UserLogin(BaseModel):
     email: EmailStr
